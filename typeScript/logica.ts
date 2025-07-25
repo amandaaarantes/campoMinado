@@ -1,19 +1,27 @@
-Square = {
-	row: 0,
-	column: 0,
-	state: "closed", //Pode ser: closed, opened, flagged
-	hasMine: false,
-	nearMines: 0, //Número de minas em volta
+type Square = {
+	row: number,
+	column: number,
+	state: string, //Pode ser: closed, opened, flagged
+	hasMine: boolean,
+	nearMines: number, //Número de minas em volta
+}
+
+const modeloSquare : Square = {
+    row : 0,
+    column : 0,
+    state : "closed",
+    hasMine : false,
+    nearMines: 0,
 }
  
-function retornaMatriz(numLinhas, numColunas){
-    let matSquares = [];
+function retornaMatriz(numLinhas : number, numColunas : number) : Square[][] {
+    let matSquares : Square[][] = [];
 
     for(let i = 0; i < numLinhas; i++){
         matSquares[i] = [];
         for(let j = 0; j < numColunas; j++){
             matSquares[i][j] = {
-                ...Square,
+                ...modeloSquare,
                 row : i,
                 column : j,
                 };
@@ -22,12 +30,12 @@ function retornaMatriz(numLinhas, numColunas){
     return matSquares;
 }
 
-function sorteiaMinas(matriz, quantMinas){
+function sorteiaMinas(matriz: Square[][], quantMinas : number) : void{
     let quantAtualMinas = 0;
     while(quantAtualMinas < quantMinas){
         
-        let linhaSorteada = parseInt(Math.random() * matriz.length);
-        let colunaSorteada = parseInt(Math.random() * matriz[0].length);
+        let linhaSorteada : number = (Math.random() * matriz.length);
+        let colunaSorteada : number = (Math.random() * matriz[0].length);
         if(!matriz[linhaSorteada][colunaSorteada].hasMine){
             matriz[linhaSorteada][colunaSorteada].hasMine = true;
             quantAtualMinas++;
@@ -37,7 +45,7 @@ function sorteiaMinas(matriz, quantMinas){
     
 }
 
-function minasAdjacentes(matriz, nLinha, nColuna){
+function minasAdjacentes(matriz : Square[][], nLinha : number, nColuna: number) : void{
     let cont = 0;
     for(let i = -1; i <= 1; i++){
         for(let j = -1; j <= 1; j++){
@@ -55,15 +63,10 @@ function minasAdjacentes(matriz, nLinha, nColuna){
     matriz[nLinha][nColuna].nearMines = cont;
        
     }
-    /* if(matriz[nLinha + i][nColuna] >= 0 && matriz[nLinha +i] < matriz.length && matriz[nLinha][nColuna+j] >= 0 && matriz[nLinha][nColuna+j] < matriz[0].length){
-                if(matriz[nLinha + i][nColuna+j].hasMine){
-                    cont++;
-                }
-            
-            }*/
+    
     }
 
-    function contarBombas(matriz){
+    function contarBombas(matriz : Square[][]) : void{
         for(let i = 0; i < matriz.length; i++){
             for(let j = 0; j < matriz[0].length; j++){
                 minasAdjacentes(matriz, i, j);
@@ -71,7 +74,7 @@ function minasAdjacentes(matriz, nLinha, nColuna){
         }
     }
 
-    function imprimirMatriz(matriz){ // resolver: console pula linha
+    function imprimirMatriz(matriz : Square[][]) : void { // resolver: console pula linha
         
         for(let i = 0; i < matriz.length; i++){
             let textoLinha = " ";
@@ -93,9 +96,9 @@ function minasAdjacentes(matriz, nLinha, nColuna){
     }
 
 
-    const campoMinado = retornaMatriz(3,3);
+    const campoMinado : Square[][] = retornaMatriz(3,3);
 
-    const gabaritoCampoMinado = JSON.parse(JSON.stringify(campoMinado));
+    const gabaritoCampoMinado : Square[][] = JSON.parse(JSON.stringify(campoMinado));
 
 
     sorteiaMinas(gabaritoCampoMinado, 4);
@@ -104,4 +107,4 @@ function minasAdjacentes(matriz, nLinha, nColuna){
     imprimirMatriz(campoMinado);
     imprimirMatriz(gabaritoCampoMinado);
 
-    
+    export{}
