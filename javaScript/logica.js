@@ -55,12 +55,7 @@ function minasAdjacentes(matriz, nLinha, nColuna){
     matriz[nLinha][nColuna].nearMines = cont;
        
     }
-    /* if(matriz[nLinha + i][nColuna] >= 0 && matriz[nLinha +i] < matriz.length && matriz[nLinha][nColuna+j] >= 0 && matriz[nLinha][nColuna+j] < matriz[0].length){
-                if(matriz[nLinha + i][nColuna+j].hasMine){
-                    cont++;
-                }
-            
-            }*/
+   
     }
 
     function contarBombas(matriz){
